@@ -1,7 +1,8 @@
-#2019
+################Ecoli - Diarrhea################
+#           Mohammad Nayeem Hasan              #
+################################################
 
-##############Only For Cross Tab and COR#############################
-
+#Libraries
 require(foreign)
 require(MASS)
 require(pROC)
@@ -13,39 +14,19 @@ require(ggplot2)
 require(maptools)
 require(dplyr)
 
-
-## importing dataset
-
+##############Only For Cross Tab and COR########
+## importing datasheet
 setwd('E:\\Update - Ecoli\\Bangladesh MICS6 SPSS Datasets')
-
 wm <- as.data.frame(read.spss('wm.sav',use.value.labels=F),stringsAsFactors = FALSE)
-
 wm<- wm[with(wm, order(HH1, HH2, LN)),]
-
 hh <- as.data.frame(read.spss('hh.sav',use.value.labels=F),stringsAsFactors = FALSE)
-
 hh<- hh[with(hh, order(HH1, HH2)),]
-
 ch <- as.data.frame(read.spss('ch.sav',use.value.labels=F),stringsAsFactors = FALSE)
-
 ch<- ch[with(ch, order(HH1, HH2, LN)),]
-
 merdat <- left_join(x = ch, y = wm, by=c("HH1", "HH2","LN"))
-
 merdat2 <- left_join(x = merdat, y = hh, by=c("HH1", "HH2"))
 str(merdat2)
-
 merdat$stratum.x
-# x1 <- c(1,1,2,2,3,3)
-# x2 <- c(2,3,1,3,1,2)
-# x <- data.frame(x1,x2)
-# x
-# 
-# y1 <- c(1,2,3)
-# y2 <- c(100,150,130)
-# y <- data.frame(y1,y2)
-# 
-# xy <- merge(x,y,by.x="x2",by.y="y1")
 
 ## subsetting datasets
 f <- c('CA1','WQ26','WQ27','WQ12','WS1','CAGE_11','HL4','HH6.x','HH7.x',
